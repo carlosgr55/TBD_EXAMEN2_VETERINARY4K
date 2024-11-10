@@ -1,0 +1,567 @@
+EXAMEN EVA 2
+MySQL Shell 8.0.37
+
+Copyright (c) 2016, 2024, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.37 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > create database examen_eva2;
+Query OK, 1 row affected (0.0132 sec)
+ MySQL  localhost:3306 ssl  SQL > use examen_eva2;
+Default schema set to `examen_eva2`.
+Fetching global names, object names from `examen_eva2` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create table pacientes(
+                                            -> paciente_id int auto_incremental key,
+                                            -> nombre varchar(50) not null,
+                                            -> apellido_pat varchar (50) not null,
+                                            -> apellido_mat varchar(50) not null,
+                                            -> peso decimal(5,2) not null,
+                                            -> altura decimal(3,2) not null,
+                                            -> numero_seguro_social varchar(50) not null,
+                                            -> genero enum('femenino', 'masculino'),
+                                            -> telefono_casa varchar(15),
+                                            -> telefono_trabajo varchar(15),
+                                            -> telefono_movil varchar(15),
+                                            -> otros varchar(100));
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'auto_incremental key,
+nombre varchar(50) not null,
+apellido_pat varchar (50) not' at line 2
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create table pacientes( paciente_id int key auto_incremental, nombre varchar(50) not null, apellido_pat varchar(50) not null, apellido_mat varchar(50) not null, peso decimal(5,2) not null, altura decimal(3,2) not null, numero_seguro_social varchar(50) not null, genero enum('femenino', 'masculino'), telefono_casa varchar(15), telefono_trabajo varchar(15), telefono_movil varchar(15), otros varchar(100));
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'auto_incremental, nombre varchar(50) not null, apellido_pat varchar(50) not null' at line 1
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create table pacientes( paciente_id int auto_incremental key, nombre varchar(50) not null, apellido_pat varchar(50) not null, apellido_mat varchar(50) not null, peso decimal(5,2) not null, altura decimal(3,2) not null, numero_seguro_social varchar(50) not null, genero enum('femenino', 'masculino'), telefono_casa varchar(15), telefono_trabajo varchar(15), telefono_movil varchar(15), otros varchar(100));
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'auto_incremental key, nombre varchar(50) not null, apellido_pat varchar(50) not ' at line 1
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create table pacientes( paciente_id int auto_increment key, nombre varchar(50) not null, apellido_pat varchar(50) not null, apellido_mat varchar(50) not null, peso decimal(5,2) not null, altura decimal(3,2) not null, numero_seguro_social varchar(50) not null, genero enum('femenino', 'masculino'), telefono_casa varchar(15), telefono_trabajo varchar(15), telefono_movil varchar(15), otros varchar(100));                 pa                       ^C
+ MySQL  localhost:3306 ssl  examen_eva2  SQL >
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create table cuartos(
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > cuarto_id int auto_increment key,
+ MySQL  localhost:3306 ssl  examen_eva2  SQL >
+ MySQL  localhost:3306 ssl  examen_eva2  SQL >
+ MySQL  localhost:3306 ssl  examen_eva2  SQL >
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > ^C
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create table cuartos(
+                                            -> cuarto_id int auto_increment key,
+                                            -> paciente_id int,
+                                            -> numero_cuarto int not null,
+                                            -> inicio_estadia date,
+                                            -> fin_estadia date,
+                                            -> jlhkl;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 7
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create table cuartos( cuarto_id int auto_increment key, paciente_id int, numero_cuarto int not null, inicio_estadia date not null,
+                                            -> fin_estadia date);
+Query OK, 0 rows affected (0.0135 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create table direcciones_pacientes(
+                                            -> direccion_paciente_id int auto_increment key,
+                                            -> paciente_id int,
+                                            -> direccion_id int);
+Query OK, 0 rows affected (0.0169 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create table empleados(
+                                            -> empleados_id int auto_increment key,
+                                            -> nombre varchar(100) not null,
+                                            -> apellido_pat varchar(100) not null,
+                                            -> apellido_mat varchar(100) not null,
+                                            -> titulo varchar(50),
+                                            -> fecha_nacimiento date not null,
+                                            -> otro varchar(100));
+Query OK, 0 rows affected (0.0204 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create table direcciones_empleados(
+                                            -> direccion_empleados_id int auto_increment key,
+                                            -> empleado_id int,
+                                            -> direccion_id int);
+Query OK, 0 rows affected (0.0208 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create tables direcciones(
+                                            -> direccion_id int auto_increment key,
+                                            -> calle varchar(60) not null,
+                                            -> numero_exterior int not null,
+                                            -> numero_interior int,
+                                            -> colonia varchar(60) not null,
+                                            -> codigo_postal varchar(10) not null,
+                                            -> ciudad varchar(60) not null,
+                                            -> estado varchar(60) not null,
+                                            -> pais varchar(70) not null,
+                                            -> otros varchar(60) not null);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tables direcciones(
+direccion_id int auto_increment key,
+calle varchar(60) not n' at line 1
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create tables direcciones( direccion_id int auto_increment key, calle varchar(60) not null, numero_exterior int not null, numero_interior int, colonia varchar(60) not null, codigo_postal varchar(10) not null, ciudad varchar(60) not null, estado varchar(60) not null, pais varchar(70) not null, otros varchar(60) not null);
+ERROR: 1064 (42000): You have an error in your create tables direcciones( direccion_id int auto_increment key, calle varchar(60) not null, numero_exterior int not null, numero_interior int, colonia varchar(60) not null, codigo_postal varchar(10) not null, ciudad varchar(60) not null, estado varchar(60) not null, pais varcha^C70) not null, otros varchar(60) not null);les direcciones( direccion_id int auto_increment key, calle varchar(60) not null, numero_exterior i
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > ar(60) not null, codigo_postal varchar(10) not null, ciudad varchar(60) not null, estado varchar(60) not null
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > not null);
+ MySQL  localhost:3306 ssl  examen_eva2  SQL >
+ MySQL  localhost:3306 ssl  examen_eva2  SQL >
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create tables direcciones( direccion_id int auto_increment key, calle varchar(60) not null, numero_exterior int not null, numero_interior int, colonia varchar(60) not null, codigo_postal varchar(10) not null, ciudad varchar(60) not null, estado varchar(60) not null, pais varchar(70) not null, otros varchar(60) not null);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tables direcciones( direccion_id int auto_increment key, calle varchar(60) not n' at line 1
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > ^C
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > ^C
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create tables direcciones( direccion_id int auto_increment key, calle varchar(60) not null, numero_exterior int not null, numero_interior int, colonia varchar(60) not null, codigo_postal varchar(10) not null, ciudad varchar(60) not null, estado varchar(60) not null, pais varchar(70) not null, otros varchar(60) not null);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tables direcciones( direccion_id int auto_increment key, calle varchar(60) not n' at line 1
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create tables direcciones(direccion_id int auto_increment key, calle varchar(60) not null, numero_exterior int not null, numero_interior int, colonia varchar(60) not null, codigo_postal varchar(10) not null, ciudad varchar(60) not null, estado varchar(60) not null, pais varchar(70) not null, otros varchar(60) not null);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tables direcciones(direccion_id int auto_increment key, calle varchar(60) not nu' at line 1
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create table direcciones(direccion_id int auto_increment key, calle varchar(60) not null, numero_exterior int not null, numero_interior int, colonia varchar(60) not null, codigo_postal varchar(10) not null, ciudad varchar(60) not null, estado varchar(60) not null, pais varchar(70) not null, otros varchar(60) not null);
+Query OK, 0 rows affected (0.0228 sec)         ^C
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > ^C
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create table registro_pacientes(
+                                            -> registro_paciente_id int auto_increment key,
+                                            -> paciente_id int,
+                                            -> cuentas_pacientes_id int,
+                                            -> registro_por_empleado_id int,
+                                            -> fecha^C
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create table registro_pacientes(
+                                            -> registro_paciente_id int auto_increment key,
+                                            -> paciente_id int,
+                                            -> cuentas_pacientes_id int,
+                                            -> registro_por_empleado_id int,
+                                            -> fecha_admision date not null,
+                                            -> condicion_medica varchar(200) not null,
+                                            -> otros varchar(100));
+Query OK, 0 rows affected (0.0131 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create table cuentas_pacientes(
+                                            -> cuentas_pacientes_id int auto_increment key,
+                                            -> paciente_id int,
+                                            -> forma_pago_pac_id int,
+                                            -> fecha_emision date not null,
+                                            -> otro varchar(100));
+Query OK, 0 rows affected (0.0135 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create table cuentas_pacientes_detalles(
+                                            -> cuentas_pacientes_det_id int auto_increment key,
+                                            -> cuentas_pacientes_id int,
+                                            -> detalle varchar(100) default 'Diagnostico',
+                                            -> cantidad decimal(6,2) not null,
+                                            -> costo_total decima(6,2) not nullkjl);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'decima(6,2) not nullkjl)' at line 6
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create table cuentas_pacientes_detalles( cuentas_pacientes_det_id int auto_increment key, cuentas_pacientes_id int, detalle varchar(100) default 'Diagnostico', cantidad decimal(8,2) not null, costo_total decima(8,2) not null);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'decima(8,2) not null)' at line 1
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create table cuentas_pacientes_detalles( cuentas_pacientes_det_id int auto_increment key, cuentas_pacientes_id int, detalle varchar(100) default 'Diagnostico', cantidad decimal(8,2) not null, costo_total decimal(8,2) not null);
+Query OK, 0 rows affected (0.0220 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create table formas_pago_pacientes(
+                                            -> forma_pago_pac_id int auto_increment key,
+                                            -> paciente_id int,
+                                            -> forma_pago_id int,
+                                            -> detalles varchar(100));
+Query OK, 0 rows affected (0.0207 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create table formas_pago(
+                                            -> forma_pago_id int auto_increment key,
+                                            -> forma_pago varchar(50))l
+                                            -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'l' at line 3
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > create table formas_pago( forma_pago_id int auto_increment key, forma_pago varchar(50)) ;
+Query OK, 0 rows affected (0.0120 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > cls
+                                            -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'cls' at line 1
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > show tables;
++----------------------------+
+| Tables_in_examen_eva2      |
++----------------------------+
+| cuartos                    |
+| cuentas_pacientes          |
+| cuentas_pacientes_detalles |
+| direcciones                |
+| direcciones_empleados      |
+| direcciones_pacientes      |
+| empleados                  |
+| formas_pago                |
+| formas_pago_pacientes      |
+| pacientes                  |
+| registro_pacientes         |
++----------------------------+
+11 rows in set (0.0133 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > desc cuartos;
++----------------+------+------+-----+---------+----------------+
+| Field          | Type | Null | Key | Default | Extra          |
++----------------+------+------+-----+---------+----------------+
+| cuarto_id      | int  | NO   | PRI | NULL    | auto_increment |
+| paciente_id    | int  | YES  |     | NULL    |                |
+| numero_cuarto  | int  | NO   |     | NULL    |                |
+| inicio_estadia | date | NO   |     | NULL    |                |
+| fin_estadia    | date | YES  |     | NULL    |                |
++----------------+------+------+-----+---------+----------------+
+5 rows in set (0.0110 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > desc pacientes;
++----------------------+------------------------------+------+-----+---------+----------------+
+| Field                | Type                         | Null | Key | Default | Extra          |
++----------------------+------------------------------+------+-----+---------+----------------+
+| paciente_id          | int                          | NO   | PRI | NULL    | auto_increment |
+| nombre               | varchar(50)                  | NO   |     | NULL    |                |
+| apellido_pat         | varchar(50)                  | NO   |     | NULL    |                |
+| apellido_mat         | varchar(50)                  | NO   |     | NULL    |                |
+| peso                 | decimal(5,2)                 | NO   |     | NULL    |                |
+| altura               | decimal(3,2)                 | NO   |     | NULL    |                |
+| numero_seguro_social | varchar(50)                  | NO   |     | NULL    |                |
+| genero               | enum('femenino','masculino') | YES  |     | NULL    |                |
+| telefono_casa        | varchar(15)                  | YES  |     | NULL    |                |
+| telefono_trabajo     | varchar(15)                  | YES  |     | NULL    |                |
+| telefono_movil       | varchar(15)                  | YES  |     | NULL    |                |
+| otros                | varchar(100)                 | YES  |     | NULL    |                |
++----------------------+------------------------------+------+-----+---------+----------------+
+12 rows in set (0.0019 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > desc cuartos;
++----------------+------+------+-----+---------+----------------+
+| Field          | Type | Null | Key | Default | Extra          |
++----------------+------+------+-----+---------+----------------+
+| cuarto_id      | int  | NO   | PRI | NULL    | auto_increment |
+| paciente_id    | int  | YES  |     | NULL    |                |
+| numero_cuarto  | int  | NO   |     | NULL    |                |
+| inicio_estadia | date | NO   |     | NULL    |                |
+| fin_estadia    | date | YES  |     | NULL    |                |
++----------------+------+------+-----+---------+----------------+
+5 rows in set (0.0017 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > desc direcciones_pacientes;
++-----------------------+------+------+-----+---------+----------------+
+| Field                 | Type | Null | Key | Default | Extra          |
++-----------------------+------+------+-----+---------+----------------+
+| direccion_paciente_id | int  | NO   | PRI | NULL    | auto_increment |
+| paciente_id           | int  | YES  |     | NULL    |                |
+| direccion_id          | int  | YES  |     | NULL    |                |
++-----------------------+------+------+-----+---------+----------------+
+3 rows in set (0.0018 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > desc empleados;
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| empleados_id     | int          | NO   | PRI | NULL    | auto_increment |
+| nombre           | varchar(100) | NO   |     | NULL    |                |
+| apellido_pat     | varchar(100) | NO   |     | NULL    |                |
+| apellido_mat     | varchar(100) | NO   |     | NULL    |                |
+| titulo           | varchar(50)  | YES  |     | NULL    |                |
+| fecha_nacimiento | date         | NO   |     | NULL    |                |
+| otro             | varchar(100) | YES  |     | NULL    |                |
++------------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.0018 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > desc direcciones_empleados;
++------------------------+------+------+-----+---------+----------------+
+| Field                  | Type | Null | Key | Default | Extra          |
++------------------------+------+------+-----+---------+----------------+
+| direccion_empleados_id | int  | NO   | PRI | NULL    | auto_increment |
+| empleado_id            | int  | YES  |     | NULL    |                |
+| direccion_id           | int  | YES  |     | NULL    |                |
++------------------------+------+------+-----+---------+----------------+
+3 rows in set (0.0016 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > desc direcciones;
++-----------------+-------------+------+-----+---------+----------------+
+| Field           | Type        | Null | Key | Default | Extra          |
++-----------------+-------------+------+-----+---------+----------------+
+| direccion_id    | int         | NO   | PRI | NULL    | auto_increment |
+| calle           | varchar(60) | NO   |     | NULL    |                |
+| numero_exterior | int         | NO   |     | NULL    |                |
+| numero_interior | int         | YES  |     | NULL    |                |
+| colonia         | varchar(60) | NO   |     | NULL    |                |
+| codigo_postal   | varchar(10) | NO   |     | NULL    |                |
+| ciudad          | varchar(60) | NO   |     | NULL    |                |
+| estado          | varchar(60) | NO   |     | NULL    |                |
+| pais            | varchar(70) | NO   |     | NULL    |                |
+| otros           | varchar(60) | NO   |     | NULL    |                |
++-----------------+-------------+------+-----+---------+----------------+
+10 rows in set (0.0018 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > desc registro_pacientes;
++--------------------------+--------------+------+-----+---------+----------------+
+| Field                    | Type         | Null | Key | Default | Extra          |
++--------------------------+--------------+------+-----+---------+----------------+
+| registro_paciente_id     | int          | NO   | PRI | NULL    | auto_increment |
+| paciente_id              | int          | YES  |     | NULL    |
+    |
+| cuentas_pacientes_id     | int          | YES  |     | NULL    |
+    |
+| registro_por_empleado_id | int          | YES  |     | NULL    |
+    |
+| fecha_admision           | date         | NO   |     | NULL    |
+    |
+| condicion_medica         | varchar(200) | NO   |     | NULL    |
+    |
+| otros                    | varchar(100) | YES  |     | NULL    |
+    |
++--------------------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > desc cuentas_pacientes;
++----------------------+--------------+------+-----+---------+----------------+
+| Field                | Type         | Null | Key | Default | Extra
+|
++----------------------+--------------+------+-----+---------+----------------+
+| cuentas_pacientes_id | int          | NO   | PRI | NULL    | auto_increment |
+| paciente_id          | int          | YES  |     | NULL    |
+|
+| forma_pago_pac_id    | int          | YES  |     | NULL    |
+|
+| fecha_emision        | date         | NO   |     | NULL    |
+|
+| otro                 | varchar(100) | YES  |     | NULL    |
+|
++----------------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.0018 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > desc cuentas_pacientes_detalles;
++--------------------------+--------------+------+-----+-------------+----------------+
+| Field                    | Type         | Null | Key | Default     | Extra          |
++--------------------------+--------------+------+-----+-------------+----------------+
+| cuentas_pacientes_det_id | int          | NO   | PRI | NULL        | auto_increment |
+| cuentas_pacientes_id     | int          | YES  |     | NULL        |                |
+| detalle                  | varchar(100) | YES  |     | Diagnostico |                |
+| cantidad                 | decimal(8,2) | NO   |     | NULL        |                |
+| costo_total              | decimal(8,2) | NO   |     | NULL        |                |
++--------------------------+--------------+------+-----+-------------+----------------+
+5 rows in set (0.0019 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > desc formas_pago_pacientes;
++-------------------+--------------+------+-----+---------+----------------+
+| Field             | Type         | Null | Key | Default | Extra          |
++-------------------+--------------+------+-----+---------+----------------+
+| forma_pago_pac_id | int          | NO   | PRI | NULL    | auto_increment |
+| paciente_id       | int          | YES  |     | NULL    |                |
+| forma_pago_id     | int          | YES  |     | NULL    |                |
+| detalles          | varchar(100) | YES  |     | NULL    |                |
++-------------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.0016 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > desc formas_pago;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| forma_pago_id | int         | NO   | PRI | NULL    | auto_increment |
+| forma_pago    | varchar(50) | YES  |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+2 rows in set (0.0023 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter table cuartos
+                                            -> add constraint
+                                            -> foreign key paciente_id
+                                            -> references pacientes(paciente_id);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references pacientes(paciente_id)' at line 4
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter table cuartos add constraint foreign key paciente_id references pacientes(paciente_id) on delete restric on update cascade;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references pacientes(paciente_id) on delete restric on update cascade' at line 1
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter table cuartos add constraint foreign key (paciente_id) references pacientes(paciente_id) on delete restric on update cascade;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'restric on update cascade' at line 1
+ MySQ^C localhost:3306 ssl  examen_eva2  SQL > alter table direcciones_pacientes( foreign key (pac
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > ^Cter table direcciones_pacientes(
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > ^Cter table direcciones_pacientes
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > ^Cter table direcciones_paciente
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > ^Cter table direcciones_pacient
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > ^Cter table direcciones_pacien
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > ^C
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter tables direcciones_pacientes
+                                            -> add constraint foreign key paciente_id
+                                            -> references pacientes(paciente_id) on delete restrict on update cascade;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tables direcciones_pacientes
+add constraint foreign key paciente_id
+references p' at line 1
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter tables direcciones_pacientes add constraint foreign key (paciente_id) references pacientes(paciente_id) on delete restrict on update cascade;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tables direcciones_pacientes add constraint foreign key (paciente_id) references' at line 1
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter table direcciones_pacientes add constraint foreign key (paciente_id) references pacientes(paciente_id) on delete restrict on update cascade;
+Query OK, 0 rows affected (0.0515 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter table direcciones_pacientes add constraint
+                                            -> foreign key direccion_id references
+                                            -> direcciones(direccion_id) on delete cascade
+                                            -> on update cascade;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references
+direcciones(direccion_id) on delete cascade
+on update cascade' at line 2
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > desc direcciones;
++-----------------+-------------+------+-----+---------+----------------+
+| Field           | Type        | Null | Key | Default | Extra          |
++-----------------+-------------+------+-----+---------+----------------+
+| direccion_id    | int         | NO   | PRI | NULL    | auto_increment |
+| calle           | varchar(60) | NO   |     | NULL    |                |
+| numero_exterior | int         | NO   |     | NULL    |                |
+| numero_interior | int         | YES  |     | NULL    |                |
+| colonia         | varchar(60) | NO   |     | NULL    |                |
+| codigo_postal   | varchar(10) | NO   |     | NULL    |                |
+| ciudad          | varchar(60) | NO   |     | NULL    |                |
+| estado          | varchar(60) | NO   |     | NULL    |                |
+| pais            | varchar(70) | NO   |     | NULL    |                |
+| otros           | varchar(60) | NO   |     | NULL    |                |
++-----------------+-------------+------+-----+---------+----------------+
+10 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter table direcciones_pacientes add constraint foreign key (direccion_id) references direcciones(direccion_id) on delete cascade on update cascade;
+
+Query OK, 0 rows affected (0.0565 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter table direcciones_empleados
+                                            -> add constraint foreign key (empleado_id)
+                                            -> references empleados(empleado_id) on delete restrict on update cascade;
+ERROR: 3734 (HY000): Failed to add the foreign key constraint. Missing column 'empleado_id' for constraint 'direcciones_empleados_ibfk_1' in the referenced table 'empleados'
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > desc direcciones_empleados;
++------------------------+------+------+-----+---------+----------------+
+| Field                  | Type | Null | Key | Default | Extra          |
++------------------------+------+------+-----+---------+----------------+
+| direccion_empleados_id | int  | NO   | PRI | NULL    | auto_increment |
+| empleado_id            | int  | YES  |     | NULL    |                |
+| direccion_id           | int  | YES  |     | NULL    |                |
++------------------------+------+------+-----+---------+----------------+
+3 rows in set (0.0013 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > desc empleados;
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| empleados_id     | int          | NO   | PRI | NULL    | auto_increment |
+| nombre           | varchar(100) | NO   |     | NULL    |                |
+| apellido_pat     | varchar(100) | NO   |     | NULL    |                |
+| apellido_mat     | varchar(100) | NO   |     | NULL    |                |
+| titulo           | varchar(50)  | YES  |     | NULL    |                |
+| fecha_nacimiento | date         | NO   |     | NULL    |                |
+| otro             | varchar(100) | YES  |     | NULL    |                |
++------------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.0013 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter table direcciones_empleados add constraint foreign key (empleado_id) references empleados(empleados_id) on delete restrict on update cascade;
+Query OK, 0 rows affected (0.0559 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter tables direcciones_empleados add
+                                            -> constraint foreign key (direccion_id)
+                                            -> references direcciones(direccion_id)
+                                            -> on delete cascade on update cascade;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tables direcciones_empleados add
+constraint foreign key (direccion_id)
+reference' at line 1
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter tables direcciones_empleados add constraint foreign key (direccion_id) references direcciones(direccion_id) on delete cascade on update cascade;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tables direcciones_empleados add constraint foreign key (direccion_id) reference' at line 1
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter table direcciones_empleados add constraint foreign key (direccion_id) references direcciones(direccion_id) on delete cascade on update cascade;
+
+Query OK, 0 rows affected (0.0605 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter table registro_pacientes
+                                            -> add constraint foreign key
+                                            -> (paciente_id) references
+                                            -> pacientes(paciente_id)
+                                            -> on delete restrict
+                                            -> on update cascade;
+Query OK, 0 rows affected (0.0557 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter table registro_pacientes
+                                            -> add constraint foreign key
+                                            -> (cuentas_paciente_id)
+                                            -> references
+                                            -> cuentas_pacientes(cuentas_pacientes_id)
+                                            -> on delete restrict on update cascade;
+ERROR: 1072 (42000): Key column 'cuentas_paciente_id' doesn't exist in table
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > desc cuentas_pacientes;
++----------------------+--------------+------+-----+---------+----------------+
+| Field                | Type         | Null | Key | Default | Extra          |
++----------------------+--------------+------+-----+---------+----------------+
+| cuentas_pacientes_id | int          | NO   | PRI | NULL    | auto_increment |
+| paciente_id          | int          | YES  |     | NULL    |                |
+| forma_pago_pac_id    | int          | YES  |     | NULL    |                |
+| fecha_emision        | date         | NO   |     | NULL    |                |
+| otro                 | varchar(100) | YES  |     | NULL    |                |
++----------------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > desc registro_pacientes;
++--------------------------+--------------+------+-----+---------+----------------+
+| Field                    | Type         | Null | Key | Default | Extra          |
++--------------------------+--------------+------+-----+---------+----------------+
+| registro_paciente_id     | int          | NO   | PRI | NULL    | auto_increment |
+| paciente_id              | int          | YES  | MUL | NULL    |                |
+| cuentas_pacientes_id     | int          | YES  |     | NULL    |                |
+| registro_por_empleado_id | int          | YES  |     | NULL    |                |
+| fecha_admision           | date         | NO   |     | NULL    |                |
+| condicion_medica         | varchar(200) | NO   |     | NULL    |                |
+| otros                    | varchar(100) | YES  |     | NULL    |                |
++--------------------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter table registro_pacientes add constraint foreign key (cuentas_pacientes_id) references cuentas_pacientes(cuentas_pacientes_id) on delete restrict on update cascade;
+Query OK, 0 rows affected (0.0626 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter table registro_pacientes
+                                            -> add constraint foreign key
+                                            -> (registro_por_empleado_id)
+                                            -> references
+                                            -> empleados(empleados_id)
+                                            -> on delete restrict on update cascade;
+Query OK, 0 rows affected (0.0588 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter table cuentas_pacientes
+                                            -> add constraint foreign key
+                                            -> (paciente_id)
+                                            -> references
+                                            -> pacientes(paciente_id)
+                                            -> on delete restrict
+                                            -> on update cascade;
+Query OK, 0 rows affected (0.0577 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter table registro_pacientes
+                                            -> add constraint foreign key
+                                            -> (forma_pago_pac_idkljkl
+                                            -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter table cuentas_pacientes add constraint foreign key (forma_pago_pac_id)
+                                            -> references
+                                            -> formas_pago_pacientes(forma;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > desc formas_pago_pacientes;
++-------------------+--------------+------+-----+---------+----------------+
+| Field             | Type         | Null | Key | Default | Extra          |
++-------------------+--------------+------+-----+---------+----------------+
+| forma_pago_pac_id | int          | NO   | PRI | NULL    | auto_increment |
+| paciente_id       | int          | YES  |     | NULL    |                |
+| forma_pago_id     | int          | YES  |     | NULL    |                |
+| detalles          | varchar(100) | YES  |     | NULL    |                |
++-------------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter table cuentas_pacientes add constraint foreign key (forma_pago_pac_id) references formas_pago_pacientes(forma_pago_pac_id)
+                                            -> on delete restrict
+                                            -> on update cascade;
+Query OK, 0 rows affected (0.0595 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter table cuentas_pacientes_detalles
+                                            -> add constraint foreign key
+                                            -> (cuentas_pacientes_id)
+                                            -> references
+                                            -> cuentas_pacientes(cuentas_pacientes_id)
+                                            -> on delete restrict on update cascade;
+Query OK, 0 rows affected (0.0523 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter table formas_pago_pacientes
+                                            -> add constraint foreign key
+                                            -> (paciente_id)
+                                            -> references pacientes(paciente_id)
+                                            -> on delete restrict
+                                            -> on update cascade;
+Query OK, 0 rows affected (0.0494 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter table formas_pago_pacientes
+                                            -> add constraint foreign key
+                                            -> (forma_pago_id)
+                                            -> references formas_pagos(forma_pago_id)
+                                            -> on delete restrict
+                                            -> on update cascade;
+ERROR: 1824 (HY000): Failed to open the referenced table 'formas_pagos'
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > desc formas_pagos
+                                            -> ;
+ERROR: 1146 (42S02): Table 'examen_eva2.formas_pagos' doesn't exist
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > desc forma_pagos;
+ERROR: 1146 (42S02): Table 'examen_eva2.forma_pagos' doesn't exist
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > show tables;
++----------------------------+
+| Tables_in_examen_eva2      |
++----------------------------+
+| cuartos                    |
+| cuentas_pacientes          |
+| cuentas_pacientes_detalles |
+| direcciones                |
+| direcciones_empleados      |
+| direcciones_pacientes      |
+| empleados                  |
+| formas_pago                |
+| formas_pago_pacientes      |
+| pacientes                  |
+| registro_pacientes         |
++----------------------------+
+11 rows in set (0.0013 sec)
+ MySQL  localhost:3306 ssl  examen_eva2  SQL > alter table formas_pago_pacientes add constraint foreign key (forma_pago_id) references formas_pago(forma_pago_id) on delete restrict on update cascade;
+Query OK, 0 rows affected (0.0595 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  examen_eva2  SQL >
