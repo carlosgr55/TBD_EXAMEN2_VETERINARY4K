@@ -1,0 +1,524 @@
+QUERYS
+
+
+1) Listado de pacientes que vivan en México
+
+  MySQL  localhost:3306 ssl  examen_eva2  SQL > select b.nombre, b.apellido_pat, c.calle, c.codigo_postal,  c.ciudad, c.pais from direcciones_pacientes a inner join pacientes b on a.paciente_id = b.paciente_id  inner join direcciones c on a.direccion_id = c.direccion_id where pais = 'MEXICO';
++-----------+--------------+------------------------------+---------------+------------+--------+
+| nombre    | apellido_pat | calle                        | codigo_postal | ciudad     | pais   |
++-----------+--------------+------------------------------+---------------+------------+--------+
+| Bezalel   | Simmel       | Avda. de la Constitucin 2222 | 71760         | Mxico D.F. | Mexico |
+| Berhard   | McFarlin     | Calle Dr. Jorge Cash 321     | 19460         | Mxico D.F. | Mexico |
+| Parto     | Bamford      | Mataderos  2312              | 37179         | Mxico D.F. | Mexico |
+| Eberhardt | Terkki       | Sierras de Granada 9993      | 45792         | Mxico D.F. | Mexico |
++-----------+--------------+------------------------------+---------------+------------+--------+
+
+2) Listado de empleados que vivan en Brasil (Brazil)
+ select a.nombre, a.apellido_pat, c.calle, c.codigo_postal, c.ciudad, c.pais from empleados a inner join direcciones_empleados b on a.empleados_id = b.empleado_id inner join direcciones c on c.direccion_id = b.direccion_id where c.pais = 'BRAZIL';
++----------+--------------+--------------------------+---------------+----------------+--------+
+| nombre   | apellido_pat | calle                    | codigo_postal | ciudad         | pais   |
++----------+--------------+--------------------------+---------------+----------------+--------+
+| Anoosh   | Peyn         | Alameda dos Canrios, 891 | 36965         | Sao Paulo      | Brazil |
+| Claudi   | Stavenow     | Av. Copacabana, 267      | 34941         | Rio de Janeiro | Brazil |
+| Zhongwei | Rosen        | Av. Ins de Castro, 414   | 14942         | Sao Paulo      | Brazil |
+| Tse      | Herber       | Rua da Panificadora, 12  | 37964         | Rio de Janeiro | Brazil |
++----------+--------------+--------------------------+---------------+----------------+--------+
+
+
+3)Listado de pacientes internados en el primer piso del hospital:
+
+ select a.nombre, a.apellido_pat, b.numero_cuarto from pacientes a inner join cuartos b on a.paciente_id = b.paciente_id where substring(concat(b.numero_cuarto),1,1) = '1';
++-----------+--------------+---------------+
+| nombre    | apellido_pat | numero_cuarto |
++-----------+--------------+---------------+
+| Georgi    | Facello      |           121 |
+| Bezalel   | Simmel       |           190 |
+| Parto     | Bamford      |           108 |
+| Chirstian | Koblick      |           179 |
+| Chirstian | Koblick      |           158 |
+| Kyoichi   | Maliniak     |           183 |
+| Tzvetan   | Zielinski    |           142 |
+| Anneke    | Preusig      |           108 |
+| Tzvetan   | Zielinski    |           100 |
+| Duangkaew | Piveteau     |           109 |
+| Saniya    | Kalloufi     |           116 |
+| Sumant    | Peac         |           182 |
+| Eberhardt | Terkki       |           180 |
+| Duangkaew | Piveteau     |           188 |
+| Mary      | Sluis        |           173 |
+| Kazuhito  | Cappelletti  |           176 |
+| Patricio  | Bridgland    |           122 |
+| Eberhardt | Terkki       |           155 |
+| Lillian   | Haddadi      |           181 |
+| Berni     | Genin        |           178 |
+| Guoxiang  | Nooteboom    |           139 |
+| Shahaf    | Famili       |           119 |
+| Kazuhito  | Cappelletti  |           193 |
+| Cristinel | Bouloucos    |           153 |
+| Prasadram | Heyers       |           168 |
+| Kazuhide  | Peha         |           115 |
+| Lillian   | Haddadi      |           140 |
+| Domenick  | Tempesti     |           170 |
+| Mayuko    | Warwick      |           153 |
+| Ramzi     | Erde         |           177 |
+| Karsten   | Joslin       |           101 |
+| Shahaf    | Famili       |           118 |
+| Bojan     | Montemayor   |           120 |
+| Bader     | Swan         |           156 |
+| Suzette   | Pettey       |           174 |
+| Prasadram | Heyers       |           156 |
++-----------+--------------+---------------+
+
+
+
+4)Listado de pacientes internados por cualquier tipo de fatiga:
+
+ MySQL  localhost:3306 ssl  examen_eva2  SQL >select a.nombre, a.apellido_pat, genero from pacientes a  inner join registro_pacientes b on a.paciente_id = b.paciente_id where condicion_medica like 'Fatigue%';
++-----------+--------------+--------+
+| nombre    | apellido_pat | genero |
++-----------+--------------+--------+
+| Duangkaew | Piveteau     | F      |
+| Mary      | Sluis        | F      |
+| Moss      | Shanbhogue   | M      |
+| Lucien    | Rosenbaum    | M      |
++-----------+--------------+--------+
+
+
+5) Realizar un listado de los empleados, y los pacientes que han registrado en la base de datos
+
+select a.nombre, a.apellido_pat, b.nombre, b.apellido_pat, c.fecha_admision from empleados a inner join registro_pacientes c on a.empleados_id = c.registro_por_empleado_id inner join pacientes b on b.paciente_id = c.paciente_id;
++-----------+--------------+------------+--------------+----------------+
+| nombre    | apellido_pat | nombre     | apellido_pat | fecha_admision |
++-----------+--------------+------------+--------------+----------------+
+| Alejandro | McAlpine     | Georgi     | Facello      | 2017-04-08     |
+| Breannda  | Billingsley  | Bezalel    | Simmel       | 2017-04-09     |
+| Premal    | Baek         | Parto      | Bamford      | 2017-04-10     |
+| Alejandro | McAlpine     | Chirstian  | Koblick      | 2017-04-12     |
+| Breannda  | Billingsley  | Kyoichi    | Maliniak     | 2017-04-12     |
+| Premal    | Baek         | Anneke     | Preusig      | 2017-04-14     |
+| Satosi    | Awdeh        | Tzvetan    | Zielinski    | 2017-04-15     |
+| Breannda  | Billingsley  | Saniya     | Kalloufi     | 2017-04-15     |
+| Breannda  | Billingsley  | Sumant     | Peac         | 2017-04-16     |
+| Breannda  | Billingsley  | Duangkaew  | Piveteau     | 2017-04-17     |
+| Breannda  | Billingsley  | Mary       | Sluis        | 2017-04-18     |
+| Breannda  | Billingsley  | Patricio   | Bridgland    | 2017-04-19     |
+| Breannda  | Billingsley  | Eberhardt  | Terkki       | 2017-04-20     |
+| Breannda  | Billingsley  | Berni      | Genin        | 2017-04-22     |
+| Shir      | McClurg      | Guoxiang   | Nooteboom    | 2017-04-22     |
+| Breannda  | Billingsley  | Kazuhito   | Cappelletti  | 2017-04-24     |
+| Breannda  | Billingsley  | Cristinel  | Bouloucos    | 2017-04-24     |
+| Breannda  | Billingsley  | Kazuhide   | Peha         | 2017-04-25     |
+| Breannda  | Billingsley  | Lillian    | Haddadi      | 2017-04-27     |
+| Breannda  | Billingsley  | Mayuko     | Warwick      | 2017-04-28     |
+| Breannda  | Billingsley  | Ramzi      | Erde         | 2017-04-28     |
+| Breannda  | Billingsley  | Shahaf     | Famili       | 2017-04-30     |
+| Zhongwei  | Rosen        | Bojan      | Montemayor   | 2017-05-01     |
+| Breannda  | Billingsley  | Suzette    | Pettey       | 2017-05-01     |
+| Premal    | Baek         | Prasadram  | Heyers       | 2017-05-02     |
+| Premal    | Baek         | Yongqiao   | Berztiss     | 2017-05-04     |
+| Breannda  | Billingsley  | Divier     | Reistad      | 2017-05-04     |
+| Premal    | Baek         | Domenick   | Tempesti     | 2017-05-06     |
+| Premal    | Baek         | Otmar      | Herbst       | 2017-05-07     |
+| Breannda  | Billingsley  | Elvis      | Demeyer      | 2017-05-07     |
+| Alejandro | McAlpine     | Karsten    | Joslin       | 2017-05-09     |
+| Breannda  | Billingsley  | Jeong      | Reistad      | 2017-05-10     |
+| Premal    | Baek         | Arif       | Merlo        | 2017-05-10     |
+| Alejandro | McAlpine     | Bader      | Swan         | 2017-05-11     |
+| Breannda  | Billingsley  | Alain      | Chappelet    | 2017-05-13     |
+| Premal    | Baek         | Adamantios | Portugali    | 2017-05-14     |
+| Satosi    | Awdeh        | Pradeep    | Makrucki     | 2017-05-14     |
+| Breannda  | Billingsley  | Huan       | Lortz        | 2017-05-15     |
+| Breannda  | Billingsley  | Alejandro  | Brender      | 2017-05-16     |
+| Breannda  | Billingsley  | Weiyi      | Meriste      | 2017-05-18     |
+| Breannda  | Billingsley  | Uri        | Lenart       | 2017-05-18     |
+| Breannda  | Billingsley  | Magy       | Stamatiou    | 2017-05-20     |
+| Breannda  | Billingsley  | Yishay     | Tzvieli      | 2017-05-21     |
+| Breannda  | Billingsley  | Mingsen    | Casley       | 2017-05-22     |
+| Shir      | McClurg      | Moss       | Shanbhogue   | 2017-05-23     |
+| Breannda  | Billingsley  | Lucien     | Rosenbaum    | 2017-05-23     |
+| Breannda  | Billingsley  | Zvonko     | Nyanchama    | 2017-05-25     |
+| Breannda  | Billingsley  | Florian    | Syrotiuk     | 2017-05-25     |
+| Breannda  | Billingsley  | Basil      | Tramer       | 2017-05-27     |
+| Breannda  | Billingsley  | Yinghua    | Dredge       | 2017-05-28     |
+| Breannda  | Billingsley  | Hidefumi   | Caine        | 2017-05-29     |
+| Breannda  | Billingsley  | Heping     | Nitsch       | 2017-05-29     |
+| Zhongwei  | Rosen        | Sanjiv     | Zschoche     | 2017-05-31     |
+| Breannda  | Billingsley  | Mayumi     | Schueller    | 2017-05-31     |
+| Premal    | Baek         | Georgy     | Dredge       | 2017-06-01     |
+| Premal    | Baek         | Brendon    | Bernini      | 2017-06-02     |
+| Breannda  | Billingsley  | Ebbe       | Callaway     | 2017-06-04     |
+| Premal    | Baek         | Berhard    | McFarlin     | 2017-06-05     |
++-----------+--------------+------------+--------------+----------------+
+
+Agregue un empleado llamado “Prueba” (con datos ficticios, los que usted elija), y repita la
+búsqueda. El empleado debe aparecer, pero sin pacientes.
+
+ select a.nombre, a.apellido_pat, b.nombre, b.apellido_pat, c.fecha_admision from empleados a  left join registro_pacientes c on a.empleados_id = c.registro_por_empleado_id left join pacientes b on b.paciente_id = c.paciente_id;
++-----------+--------------+------------+--------------+----------------+
+| nombre    | apellido_pat | nombre     | apellido_pat | fecha_admision |
++-----------+--------------+------------+--------------+----------------+
+| Alejandro | McAlpine     | Georgi     | Facello      | 2017-04-08     |
+| Alejandro | McAlpine     | Chirstian  | Koblick      | 2017-04-12     |
+| Alejandro | McAlpine     | Karsten    | Joslin       | 2017-05-09     |
+| Alejandro | McAlpine     | Bader      | Swan         | 2017-05-11     |
+| Breannda  | Billingsley  | Bezalel    | Simmel       | 2017-04-09     |
+| Breannda  | Billingsley  | Kyoichi    | Maliniak     | 2017-04-12     |
+| Breannda  | Billingsley  | Saniya     | Kalloufi     | 2017-04-15     |
+| Breannda  | Billingsley  | Sumant     | Peac         | 2017-04-16     |
+| Breannda  | Billingsley  | Duangkaew  | Piveteau     | 2017-04-17     |
+| Breannda  | Billingsley  | Mary       | Sluis        | 2017-04-18     |
+| Breannda  | Billingsley  | Patricio   | Bridgland    | 2017-04-19     |
+| Breannda  | Billingsley  | Eberhardt  | Terkki       | 2017-04-20     |
+| Breannda  | Billingsley  | Berni      | Genin        | 2017-04-22     |
+| Breannda  | Billingsley  | Kazuhito   | Cappelletti  | 2017-04-24     |
+| Breannda  | Billingsley  | Cristinel  | Bouloucos    | 2017-04-24     |
+| Breannda  | Billingsley  | Kazuhide   | Peha         | 2017-04-25     |
+| Breannda  | Billingsley  | Lillian    | Haddadi      | 2017-04-27     |
+| Breannda  | Billingsley  | Mayuko     | Warwick      | 2017-04-28     |
+| Breannda  | Billingsley  | Ramzi      | Erde         | 2017-04-28     |
+| Breannda  | Billingsley  | Shahaf     | Famili       | 2017-04-30     |
+| Breannda  | Billingsley  | Suzette    | Pettey       | 2017-05-01     |
+| Breannda  | Billingsley  | Divier     | Reistad      | 2017-05-04     |
+| Breannda  | Billingsley  | Elvis      | Demeyer      | 2017-05-07     |
+| Breannda  | Billingsley  | Jeong      | Reistad      | 2017-05-10     |
+| Breannda  | Billingsley  | Alain      | Chappelet    | 2017-05-13     |
+| Breannda  | Billingsley  | Huan       | Lortz        | 2017-05-15     |
+| Breannda  | Billingsley  | Alejandro  | Brender      | 2017-05-16     |
+| Breannda  | Billingsley  | Weiyi      | Meriste      | 2017-05-18     |
+| Breannda  | Billingsley  | Uri        | Lenart       | 2017-05-18     |
+| Breannda  | Billingsley  | Magy       | Stamatiou    | 2017-05-20     |
+| Breannda  | Billingsley  | Yishay     | Tzvieli      | 2017-05-21     |
+| Breannda  | Billingsley  | Mingsen    | Casley       | 2017-05-22     |
+| Breannda  | Billingsley  | Lucien     | Rosenbaum    | 2017-05-23     |
+| Breannda  | Billingsley  | Zvonko     | Nyanchama    | 2017-05-25     |
+| Breannda  | Billingsley  | Florian    | Syrotiuk     | 2017-05-25     |
+| Breannda  | Billingsley  | Basil      | Tramer       | 2017-05-27     |
+| Breannda  | Billingsley  | Yinghua    | Dredge       | 2017-05-28     |
+| Breannda  | Billingsley  | Hidefumi   | Caine        | 2017-05-29     |
+| Breannda  | Billingsley  | Heping     | Nitsch       | 2017-05-29     |
+| Breannda  | Billingsley  | Mayumi     | Schueller    | 2017-05-31     |
+| Breannda  | Billingsley  | Ebbe       | Callaway     | 2017-06-04     |
+| Tse       | Herber       | NULL       | NULL         | NULL           |
+| Anoosh    | Peyn         | NULL       | NULL         | NULL           |
+| Gino      | Leonhardt    | NULL       | NULL         | NULL           |
+| Udi       | Jansch       | NULL       | NULL         | NULL           |
+| Satosi    | Awdeh        | Tzvetan    | Zielinski    | 2017-04-15     |
+| Satosi    | Awdeh        | Pradeep    | Makrucki     | 2017-05-14     |
+| Kwee      | Schusler     | NULL       | NULL         | NULL           |
+| Claudi    | Stavenow     | NULL       | NULL         | NULL           |
+| Charlene  | Brattka      | NULL       | NULL         | NULL           |
+| Margareta | Bierman      | NULL       | NULL         | NULL           |
+| Reuven    | Garigliano   | NULL       | NULL         | NULL           |
+| Hisao     | Lipner       | NULL       | NULL         | NULL           |
+| Hironoby  | Sidou        | NULL       | NULL         | NULL           |
+| Shir      | McClurg      | Guoxiang   | Nooteboom    | 2017-04-22     |
+| Shir      | McClurg      | Moss       | Shanbhogue   | 2017-05-23     |
+| Mokhtar   | Bernatsky    | NULL       | NULL         | NULL           |
+| Gao       | Dolinsky     | NULL       | NULL         | NULL           |
+| Erez      | Ritzmann     | NULL       | NULL         | NULL           |
+| Mona      | Azuma        | NULL       | NULL         | NULL           |
+| Danel     | Mondadori    | NULL       | NULL         | NULL           |
+| Kshitij   | Gils         | NULL       | NULL         | NULL           |
+| Premal    | Baek         | Parto      | Bamford      | 2017-04-10     |
+| Premal    | Baek         | Anneke     | Preusig      | 2017-04-14     |
+| Premal    | Baek         | Prasadram  | Heyers       | 2017-05-02     |
+| Premal    | Baek         | Yongqiao   | Berztiss     | 2017-05-04     |
+| Premal    | Baek         | Domenick   | Tempesti     | 2017-05-06     |
+| Premal    | Baek         | Otmar      | Herbst       | 2017-05-07     |
+| Premal    | Baek         | Arif       | Merlo        | 2017-05-10     |
+| Premal    | Baek         | Adamantios | Portugali    | 2017-05-14     |
+| Premal    | Baek         | Georgy     | Dredge       | 2017-06-01     |
+| Premal    | Baek         | Brendon    | Bernini      | 2017-06-02     |
+| Premal    | Baek         | Berhard    | McFarlin     | 2017-06-05     |
+| Zhongwei  | Rosen        | Bojan      | Montemayor   | 2017-05-01     |
+| Zhongwei  | Rosen        | Sanjiv     | Zschoche     | 2017-05-31     |
+| Parviz    | Lortz        | NULL       | NULL         | NULL           |
+| Vishv     | Zockler      | NULL       | NULL         | NULL           |
+| Tuval     | Kalloufi     | NULL       | NULL         | NULL           |
+| Kenroku   | Malabarba    | NULL       | NULL         | NULL           |
+| Somnath   | Foote        | NULL       | NULL         | NULL           |
+| Xinglin   | Eugenio      | NULL       | NULL         | NULL           |
+| Jungsoon  | Syrzycki     | NULL       | NULL         | NULL           |
+| Prueba    | Lafourcade   | NULL       | NULL         | NULL           |
++-----------+--------------+------------+--------------+----------------+
+
+
+6) Listado de pacientes (ordenado alfabéticamente por el apellido) y sus cuentas, mostrando el detalle del
+adeudo para cada cliente:
+
+ select a.nombre, a.apellido_pat, b.fecha_emision, c.detalle, c.cantidad, c.costo_total, (cantidad * costo_total) as adeudo from pacientes a inner join cuentas_pacientes b on b.paciente_id = a.paciente_id inner join cuentas_pacientes_detalles c on c.cuentas_pacientes_id = b.cuentas_pacientes_id order by a.apellido_pat;
++------------+--------------+---------------+-------------+----------+-------------+--------------+
+| nombre     | apellido_pat | fecha_emision | detalle     | cantidad | costo_total | adeudo       |
++------------+--------------+---------------+-------------+----------+-------------+--------------+
+| Parto      | Bamford      | 2017-04-20    | Tratamiento |     2.00 |   335363.00 |  670726.0000 |
+| Parto      | Bamford      | 2017-04-20    | Tratamiento |     2.00 |   468092.00 |  936184.0000 |
+| Brendon    | Bernini      | 2017-06-17    | Tratamiento |     3.00 |    57805.00 |  173415.0000 |
+| Brendon    | Bernini      | 2017-06-17    | Tratamiento |     1.00 |   373220.00 |  373220.0000 |
+| Yongqiao   | Berztiss     | 2017-05-14    | Tratamiento |     1.00 |   255123.00 |  255123.0000 |
+| Yongqiao   | Berztiss     | 2017-05-14    | Tratamiento |     2.00 |   549895.00 | 1099790.0000 |
+| Cristinel  | Bouloucos    | 2017-05-01    | Tratamiento |     3.00 |   729192.00 | 2187576.0000 |
+| Cristinel  | Bouloucos    | 2017-05-01    | Tratamiento |     1.00 |   589304.00 |  589304.0000 |
+| Alejandro  | Brender      | 2017-05-26    | Tratamiento |     3.00 |   158256.00 |  474768.0000 |
+| Alejandro  | Brender      | 2017-05-26    | Tratamiento |     3.00 |   354925.00 | 1064775.0000 |
+| Patricio   | Bridgland    | 2017-04-28    | Tratamiento |     3.00 |   615740.00 | 1847220.0000 |
+| Patricio   | Bridgland    | 2017-04-28    | Tratamiento |     2.00 |    50663.00 |  101326.0000 |
+| Hidefumi   | Caine        | 2017-06-03    | Tratamiento |     3.00 |   153439.00 |  460317.0000 |
+| Hidefumi   | Caine        | 2017-06-03    | Tratamiento |     1.00 |    71023.00 |   71023.0000 |
+| Ebbe       | Callaway     | 2017-06-16    | Tratamiento |     3.00 |   308184.00 |  924552.0000 |
+| Ebbe       | Callaway     | 2017-06-16    | Tratamiento |     3.00 |   597900.00 | 1793700.0000 |
+| Kazuhito   | Cappelletti  | 2017-05-02    | Tratamiento |     1.00 |   321521.00 |  321521.0000 |
+| Kazuhito   | Cappelletti  | 2017-05-02    | Tratamiento |     2.00 |   234213.00 |  468426.0000 |
+| Mingsen    | Casley       | 2017-06-07    | Tratamiento |     3.00 |   379874.00 | 1139622.0000 |
+| Mingsen    | Casley       | 2017-06-07    | Tratamiento |     2.00 |    61608.00 |  123216.0000 |
+| Alain      | Chappelet    | 2017-05-16    | Tratamiento |     1.00 |   645401.00 |  645401.0000 |
+| Alain      | Chappelet    | 2017-05-16    | Tratamiento |     1.00 |   187645.00 |  187645.0000 |
+| Elvis      | Demeyer      | 2017-05-18    | Tratamiento |     2.00 |   973681.00 | 1947362.0000 |
+| Elvis      | Demeyer      | 2017-05-18    | Tratamiento |     1.00 |   140167.00 |  140167.0000 |
+| Georgy     | Dredge       | 2017-06-14    | Tratamiento |     3.00 |   343354.00 | 1030062.0000 |
+| Georgy     | Dredge       | 2017-06-14    | Tratamiento |     3.00 |   352489.00 | 1057467.0000 |
+| Yinghua    | Dredge       | 2017-06-03    | Tratamiento |     1.00 |   834540.00 |  834540.0000 |
+| Yinghua    | Dredge       | 2017-06-03    | Tratamiento |     1.00 |   335679.00 |  335679.0000 |
+| Ramzi      | Erde         | 2017-05-08    | Tratamiento |     1.00 |   347804.00 |  347804.0000 |
+| Ramzi      | Erde         | 2017-05-08    | Tratamiento |     1.00 |   584960.00 |  584960.0000 |
+| Georgi     | Facello      | 2017-04-20    | Tratamiento |     3.00 |   151347.00 |  454041.0000 |
+| Georgi     | Facello      | 2017-04-20    | Tratamiento |     3.00 |   286210.00 |  858630.0000 |
+| Shahaf     | Famili       | 2017-05-14    | Tratamiento |     2.00 |   824953.00 | 1649906.0000 |
+| Shahaf     | Famili       | 2017-05-14    | Tratamiento |     3.00 |   429701.00 | 1289103.0000 |
+| Berni      | Genin        | 2017-04-26    | Tratamiento |     3.00 |   289314.00 |  867942.0000 |
+| Berni      | Genin        | 2017-04-26    | Tratamiento |     3.00 |   239682.00 |  719046.0000 |
+| Lillian    | Haddadi      | 2017-05-03    | Tratamiento |     2.00 |   141906.00 |  283812.0000 |
+| Lillian    | Haddadi      | 2017-05-03    | Tratamiento |     1.00 |   443071.00 |  443071.0000 |
+| Otmar      | Herbst       | 2017-05-13    | Tratamiento |     3.00 |   230187.00 |  690561.0000 |
+| Otmar      | Herbst       | 2017-05-13    | Tratamiento |     3.00 |    34939.00 |  104817.0000 |
+| Prasadram  | Heyers       | 2017-05-19    | Tratamiento |     3.00 |   376236.00 | 1128708.0000 |
+| Prasadram  | Heyers       | 2017-05-19    | Tratamiento |     1.00 |   566074.00 |  566074.0000 |
+| Karsten    | Joslin       | 2017-05-20    | Tratamiento |     3.00 |   556224.00 | 1668672.0000 |
+| Karsten    | Joslin       | 2017-05-20    | Tratamiento |     1.00 |   268348.00 |  268348.0000 |
+| Saniya     | Kalloufi     | 2017-04-27    | Tratamiento |     1.00 |   744675.00 |  744675.0000 |
+| Saniya     | Kalloufi     | 2017-04-27    | Tratamiento |     2.00 |   554900.00 | 1109800.0000 |
+| Chirstian  | Koblick      | 2017-04-22    | Tratamiento |     3.00 |   336904.00 | 1010712.0000 |
+| Chirstian  | Koblick      | 2017-04-22    | Tratamiento |     3.00 |   526929.00 | 1580787.0000 |
+| Uri        | Lenart       | 2017-05-31    | Tratamiento |     2.00 |   881690.00 | 1763380.0000 |
+| Uri        | Lenart       | 2017-05-31    | Tratamiento |     2.00 |    59643.00 |  119286.0000 |
+| Huan       | Lortz        | 2017-05-21    | Tratamiento |     3.00 |   110331.00 |  330993.0000 |
+| Huan       | Lortz        | 2017-05-21    | Tratamiento |     1.00 |   320878.00 |  320878.0000 |
+| Pradeep    | Makrucki     | 2017-05-27    | Tratamiento |     1.00 |   707681.00 |  707681.0000 |
+| Pradeep    | Makrucki     | 2017-05-27    | Tratamiento |     2.00 |   292454.00 |  584908.0000 |
+| Kyoichi    | Maliniak     | 2017-04-21    | Tratamiento |     1.00 |   284730.00 |  284730.0000 |
+| Kyoichi    | Maliniak     | 2017-04-21    | Tratamiento |     1.00 |   550774.00 |  550774.0000 |
+| Berhard    | McFarlin     | 2017-06-15    | Tratamiento |     2.00 |   453174.00 |  906348.0000 |
+| Berhard    | McFarlin     | 2017-06-15    | Tratamiento |     3.00 |   378332.00 | 1134996.0000 |
+| Weiyi      | Meriste      | 2017-05-31    | Tratamiento |     2.00 |    81944.00 |  163888.0000 |
+| Weiyi      | Meriste      | 2017-05-31    | Tratamiento |     3.00 |   511089.00 | 1533267.0000 |
+| Arif       | Merlo        | 2017-05-22    | Tratamiento |     3.00 |   797003.00 | 2391009.0000 |
+| Arif       | Merlo        | 2017-05-22    | Tratamiento |     1.00 |   343220.00 |  343220.0000 |
+| Bojan      | Montemayor   | 2017-05-12    | Tratamiento |     3.00 |   966042.00 | 2898126.0000 |
+| Bojan      | Montemayor   | 2017-05-12    | Tratamiento |     3.00 |   570861.00 | 1712583.0000 |
+| Heping     | Nitsch       | 2017-06-10    | Tratamiento |     3.00 |   236628.00 |  709884.0000 |
+| Heping     | Nitsch       | 2017-06-10    | Tratamiento |     1.00 |   443391.00 |  443391.0000 |
+| Guoxiang   | Nooteboom    | 2017-05-05    | Tratamiento |     2.00 |   346244.00 |  692488.0000 |
+| Guoxiang   | Nooteboom    | 2017-05-05    | Tratamiento |     1.00 |   563209.00 |  563209.0000 |
+| Zvonko     | Nyanchama    | 2017-05-31    | Tratamiento |     2.00 |   860995.00 | 1721990.0000 |
+| Zvonko     | Nyanchama    | 2017-05-31    | Tratamiento |     3.00 |    68985.00 |  206955.0000 |
+| Sumant     | Peac         | 2017-04-28    | Tratamiento |     1.00 |   859558.00 |  859558.0000 |
+| Sumant     | Peac         | 2017-04-28    | Tratamiento |     1.00 |   285060.00 |  285060.0000 |
+| Kazuhide   | Peha         | 2017-05-12    | Tratamiento |     2.00 |   654777.00 | 1309554.0000 |
+| Kazuhide   | Peha         | 2017-05-12    | Tratamiento |     3.00 |   248645.00 |  745935.0000 |
+| Suzette    | Pettey       | 2017-05-05    | Tratamiento |     1.00 |   376164.00 |  376164.0000 |
+| Suzette    | Pettey       | 2017-05-05    | Tratamiento |     2.00 |    46589.00 |   93178.0000 |
+| Duangkaew  | Piveteau     | 2017-04-27    | Tratamiento |     1.00 |   507315.00 |  507315.0000 |
+| Duangkaew  | Piveteau     | 2017-04-27    | Tratamiento |     1.00 |   525974.00 |  525974.0000 |
+| Adamantios | Portugali    | 2017-05-20    | Tratamiento |     3.00 |   732868.00 | 2198604.0000 |
+| Adamantios | Portugali    | 2017-05-20    | Tratamiento |     3.00 |   176937.00 |  530811.0000 |
+| Anneke     | Preusig      | 2017-04-18    | Tratamiento |     1.00 |   692302.00 |  692302.0000 |
+| Anneke     | Preusig      | 2017-04-18    | Tratamiento |     3.00 |   152954.00 |  458862.0000 |
+| Jeong      | Reistad      | 2017-05-26    | Tratamiento |     1.00 |   789826.00 |  789826.0000 |
+| Jeong      | Reistad      | 2017-05-26    | Tratamiento |     3.00 |    54824.00 |  164472.0000 |
+| Divier     | Reistad      | 2017-05-12    | Tratamiento |     3.00 |   317412.00 |  952236.0000 |
+| Divier     | Reistad      | 2017-05-12    | Tratamiento |     3.00 |    88233.00 |  264699.0000 |
+| Lucien     | Rosenbaum    | 2017-06-07    | Tratamiento |     3.00 |   863400.00 | 2590200.0000 |
+| Lucien     | Rosenbaum    | 2017-06-07    | Tratamiento |     1.00 |   541120.00 |  541120.0000 |
+| Mayumi     | Schueller    | 2017-06-09    | Tratamiento |     3.00 |   680413.00 | 2041239.0000 |
+| Mayumi     | Schueller    | 2017-06-09    | Tratamiento |     1.00 |   132635.00 |  132635.0000 |
+| Moss       | Shanbhogue   | 2017-06-04    | Tratamiento |     1.00 |   153311.00 |  153311.0000 |
+| Moss       | Shanbhogue   | 2017-06-04    | Tratamiento |     2.00 |   452630.00 |  905260.0000 |
+| Bezalel    | Simmel       | 2017-04-17    | Tratamiento |     3.00 |    50299.00 |  150897.0000 |
+| Bezalel    | Simmel       | 2017-04-17    | Tratamiento |     2.00 |   370053.00 |  740106.0000 |
+| Mary       | Sluis        | 2017-04-28    | Tratamiento |     2.00 |   189576.00 |  379152.0000 |
+| Mary       | Sluis        | 2017-04-28    | Tratamiento |     3.00 |   585548.00 | 1756644.0000 |
+| Magy       | Stamatiou    | 2017-06-01    | Tratamiento |     2.00 |   602980.00 | 1205960.0000 |
+| Magy       | Stamatiou    | 2017-06-01    | Tratamiento |     2.00 |   583011.00 | 1166022.0000 |
+| Bader      | Swan         | 2017-05-21    | Tratamiento |     3.00 |   896987.00 | 2690961.0000 |
+| Bader      | Swan         | 2017-05-21    | Tratamiento |     1.00 |   141859.00 |  141859.0000 |
+| Florian    | Syrotiuk     | 2017-06-07    | Tratamiento |     3.00 |   149290.00 |  447870.0000 |
+| Florian    | Syrotiuk     | 2017-06-07    | Tratamiento |     1.00 |    79515.00 |   79515.0000 |
+| Domenick   | Tempesti     | 2017-05-15    | Tratamiento |     3.00 |   766565.00 | 2299695.0000 |
+| Domenick   | Tempesti     | 2017-05-15    | Tratamiento |     3.00 |   184519.00 |  553557.0000 |
+| Eberhardt  | Terkki       | 2017-04-29    | Tratamiento |     2.00 |   251751.00 |  503502.0000 |
+| Eberhardt  | Terkki       | 2017-04-29    | Tratamiento |     2.00 |   275709.00 |  551418.0000 |
+| Basil      | Tramer       | 2017-05-31    | Tratamiento |     1.00 |   267026.00 |  267026.0000 |
+| Basil      | Tramer       | 2017-05-31    | Tratamiento |     1.00 |   596734.00 |  596734.0000 |
+| Yishay     | Tzvieli      | 2017-05-27    | Tratamiento |     1.00 |   268138.00 |  268138.0000 |
+| Yishay     | Tzvieli      | 2017-05-27    | Tratamiento |     3.00 |   124520.00 |  373560.0000 |
+| Mayuko     | Warwick      | 2017-05-09    | Tratamiento |     1.00 |   749107.00 |  749107.0000 |
+| Mayuko     | Warwick      | 2017-05-09    | Tratamiento |     3.00 |   219624.00 |  658872.0000 |
+| Tzvetan    | Zielinski    | 2017-04-24    | Tratamiento |     1.00 |   191741.00 |  191741.0000 |
+| Tzvetan    | Zielinski    | 2017-04-24    | Tratamiento |     2.00 |   361733.00 |  723466.0000 |
+| Sanjiv     | Zschoche     | 2017-06-14    | Tratamiento |     3.00 |   871864.00 | 2615592.0000 |
+| Sanjiv     | Zschoche     | 2017-06-14    | Tratamiento |     2.00 |   479401.00 |  958802.0000 |
++------------+--------------+---------------+-------------+----------+-------------+--------------+
+
+7)Listado de pacientes y el total (costo monetario) de todos los servicios que se le han otorgado:
+
+select a.nombre, a.apellido_pat, sum(c.cantidad * c.costo_total) as total_adeudo from pacientes a inner join cuentas_pacientes b on a.paciente_id = b.paciente_id inner join cuentas_pacientes_detalles c on c.cuentas_pacientes_id = b.cuentas_pacientes_id group by a.paciente_id order by a.apellido_pat;
++------------+--------------+--------------+
+| nombre     | apellido_pat | total_adeudo |
++------------+--------------+--------------+
+| Parto      | Bamford      | 1606910.0000 |
+| Brendon    | Bernini      |  546635.0000 |
+| Yongqiao   | Berztiss     | 1354913.0000 |
+| Cristinel  | Bouloucos    | 2776880.0000 |
+| Alejandro  | Brender      | 1539543.0000 |
+| Patricio   | Bridgland    | 1948546.0000 |
+| Hidefumi   | Caine        |  531340.0000 |
+| Ebbe       | Callaway     | 2718252.0000 |
+| Kazuhito   | Cappelletti  |  789947.0000 |
+| Mingsen    | Casley       | 1262838.0000 |
+| Alain      | Chappelet    |  833046.0000 |
+| Elvis      | Demeyer      | 2087529.0000 |
+| Georgy     | Dredge       | 2087529.0000 |
+| Yinghua    | Dredge       | 1170219.0000 |
+| Ramzi      | Erde         |  932764.0000 |
+| Georgi     | Facello      | 1312671.0000 |
+| Shahaf     | Famili       | 2939009.0000 |
+| Berni      | Genin        | 1586988.0000 |
+| Lillian    | Haddadi      |  726883.0000 |
+| Otmar      | Herbst       |  795378.0000 |
+| Prasadram  | Heyers       | 1694782.0000 |
+| Karsten    | Joslin       | 1937020.0000 |
+| Saniya     | Kalloufi     | 1854475.0000 |
+| Chirstian  | Koblick      | 2591499.0000 |
+| Uri        | Lenart       | 1882666.0000 |
+| Huan       | Lortz        |  651871.0000 |
+| Pradeep    | Makrucki     | 1292589.0000 |
+| Kyoichi    | Maliniak     |  835504.0000 |
+| Berhard    | McFarlin     | 2041344.0000 |
+| Weiyi      | Meriste      | 1697155.0000 |
+| Arif       | Merlo        | 2734229.0000 |
+| Bojan      | Montemayor   | 4610709.0000 |
+| Heping     | Nitsch       | 1153275.0000 |
+| Guoxiang   | Nooteboom    | 1255697.0000 |
+| Zvonko     | Nyanchama    | 1928945.0000 |
+| Sumant     | Peac         | 1144618.0000 |
+| Kazuhide   | Peha         | 2055489.0000 |
+| Suzette    | Pettey       |  469342.0000 |
+| Duangkaew  | Piveteau     | 1033289.0000 |
+| Adamantios | Portugali    | 2729415.0000 |
+| Anneke     | Preusig      | 1151164.0000 |
+| Jeong      | Reistad      |  954298.0000 |
+| Divier     | Reistad      | 1216935.0000 |
+| Lucien     | Rosenbaum    | 3131320.0000 |
+| Mayumi     | Schueller    | 2173874.0000 |
+| Moss       | Shanbhogue   | 1058571.0000 |
+| Bezalel    | Simmel       |  891003.0000 |
+| Mary       | Sluis        | 2135796.0000 |
+| Magy       | Stamatiou    | 2371982.0000 |
+| Bader      | Swan         | 2832820.0000 |
+| Florian    | Syrotiuk     |  527385.0000 |
+| Domenick   | Tempesti     | 2853252.0000 |
+| Eberhardt  | Terkki       | 1054920.0000 |
+| Basil      | Tramer       |  863760.0000 |
+| Yishay     | Tzvieli      |  641698.0000 |
+| Mayuko     | Warwick      | 1407979.0000 |
+| Tzvetan    | Zielinski    |  915207.0000 |
+| Sanjiv     | Zschoche     | 3574394.0000 |
++------------+--------------+--------------+
+
+7)Listado de pacientes y el total (costo monetario) de todos los servicios que se le han otorgado:
+
+select a.nombre, a.apellido_pat, sum(c.cantidad * c.costo_total) as total_adeudo from pacientes a inner join cuentas_pacientes b on a.paciente_id = b.paciente_id inner join cuentas_pacientes_detalles c on c.cuentas_pacientes_id = b.cuentas_pacientes_id inner join formas_pago_pacientes d on a.paciente_id = d.paciente_id where forma_pago_id is null group by a.paciente_id order by a.apellido_pat;
++------------+--------------+--------------+
+| nombre     | apellido_pat | total_adeudo |
++------------+--------------+--------------+
+| Hidefumi   | Caine        |  531340.0000 |
+| Kazuhito   | Cappelletti  |  789947.0000 |
+| Mingsen    | Casley       | 1262838.0000 |
+| Alain      | Chappelet    |  833046.0000 |
+| Georgi     | Facello      | 1312671.0000 |
+| Shahaf     | Famili       | 2939009.0000 |
+| Berni      | Genin        | 1586988.0000 |
+| Prasadram  | Heyers       | 1694782.0000 |
+| Karsten    | Joslin       | 1937020.0000 |
+| Berhard    | McFarlin     | 2041344.0000 |
+| Arif       | Merlo        | 2734229.0000 |
+| Bojan      | Montemayor   | 4610709.0000 |
+| Heping     | Nitsch       | 1153275.0000 |
+| Guoxiang   | Nooteboom    | 1255697.0000 |
+| Suzette    | Pettey       |  469342.0000 |
+| Adamantios | Portugali    | 2729415.0000 |
+| Jeong      | Reistad      |  954298.0000 |
+| Moss       | Shanbhogue   | 1058571.0000 |
+| Bezalel    | Simmel       |  891003.0000 |
+| Magy       | Stamatiou    | 2371982.0000 |
+| Bader      | Swan         | 2832820.0000 |
+| Eberhardt  | Terkki       | 1054920.0000 |
+| Yishay     | Tzvieli      |  641698.0000 |
++------------+--------------+--------------+
+
+
+9) . Listado de pacientes que HAN pagado sus cuentas en EFECTIVO:
+select a.nombre, a.apellido_pat, sum(c.cantidad * c.costo_total) as total_adeudo from pacientes a inner join cuentas_pacientes b on a.paciente_id = b.paciente_id inner join cuentas_pacientes_detalles c on c.cuentas_pacientes_id = b.cuentas_pacientes_id inner join formas_pago_pacientes d on a.paciente_id = d.paciente_id inner join formas_pago e on d.forma_pago_id = e.forma_pago_id where e.forma_pagO = 'EFECTIVO' group by a.paciente_id order by a.apellido_pat;
++-----------+--------------+--------------+
+| nombre    | apellido_pat | total_adeudo |
++-----------+--------------+--------------+
+| Parto     | Bamford      | 1606910.0000 |
+| Yongqiao  | Berztiss     | 1354913.0000 |
+| Cristinel | Bouloucos    | 2776880.0000 |
+| Saniya    | Kalloufi     | 1854475.0000 |
+| Pradeep   | Makrucki     | 1292589.0000 |
+| Lucien    | Rosenbaum    | 3131320.0000 |
+| Sanjiv    | Zschoche     | 3574394.0000 |
++-----------+--------------+--------------+
+
+10)Listado de pacientes que HAN pagado sus cuentas y el monto que adeudan:
+
+ select a.nombre, a.apellido_pat, sum(c.cantidad * c.costo_total) as total_adeudo from pacientes a inner join cuentas_pacientes b on a.paciente_id = b.paciente_id inner join cuentas_pacientes_detalles c on c.cuentas_pacientes_id = b.cuentas_pacientes_id inner join formas_pago_pacientes d on a.paciente_id = d.paciente_id  where forma_pago_id is not null group by a.paciente_id order by a.apellido_pat;
++-----------+--------------+--------------+
+| nombre    | apellido_pat | total_adeudo |
++-----------+--------------+--------------+
+| Parto     | Bamford      | 1606910.0000 |
+| Brendon   | Bernini      |  546635.0000 |
+| Yongqiao  | Berztiss     | 1354913.0000 |
+| Cristinel | Bouloucos    | 2776880.0000 |
+| Alejandro | Brender      | 1539543.0000 |
+| Patricio  | Bridgland    | 1948546.0000 |
+| Ebbe      | Callaway     | 2718252.0000 |
+| Elvis     | Demeyer      | 2087529.0000 |
+| Yinghua   | Dredge       | 1170219.0000 |
+| Georgy    | Dredge       | 2087529.0000 |
+| Ramzi     | Erde         |  932764.0000 |
+| Lillian   | Haddadi      |  726883.0000 |
+| Otmar     | Herbst       |  795378.0000 |
+| Saniya    | Kalloufi     | 1854475.0000 |
+| Chirstian | Koblick      | 2591499.0000 |
+| Uri       | Lenart       | 1882666.0000 |
+| Huan      | Lortz        |  651871.0000 |
+| Pradeep   | Makrucki     | 1292589.0000 |
+| Kyoichi   | Maliniak     |  835504.0000 |
+| Weiyi     | Meriste      | 1697155.0000 |
+| Zvonko    | Nyanchama    | 1928945.0000 |
+| Sumant    | Peac         | 1144618.0000 |
+| Kazuhide  | Peha         | 2055489.0000 |
+| Duangkaew | Piveteau     | 1033289.0000 |
+| Anneke    | Preusig      | 1151164.0000 |
+| Divier    | Reistad      | 1216935.0000 |
+| Lucien    | Rosenbaum    | 3131320.0000 |
+| Mayumi    | Schueller    | 2173874.0000 |
+| Mary      | Sluis        | 2135796.0000 |
+| Florian   | Syrotiuk     |  527385.0000 |
+| Domenick  | Tempesti     | 2853252.0000 |
+| Basil     | Tramer       |  863760.0000 |
+| Mayuko    | Warwick      | 1407979.0000 |
+| Tzvetan   | Zielinski    |  915207.0000 |
+| Sanjiv    | Zschoche     | 3574394.0000 |
++-----------+--------------+--------------+
